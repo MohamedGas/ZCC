@@ -12,16 +12,13 @@ public class Main {
 
         System.out.println("+-------------------------------------------+");
         Scanner input = new Scanner(System.in);
-
         System.out.print("Please Enter Your SubDomain: ");
         String subDomain = input.next();
-        System.out.println();
         System.out.print("Please Enter you email: ");
         String email = input.next();
-        System.out.println();
         System.out.print("please enter your password: ");
         String password = input.next();
-        System.out.println();
+
 
         Credential credential = new Credential(subDomain, email, password);
 
@@ -35,18 +32,27 @@ public class Main {
 
             menuMessage();
             userInput = input.next();
-            if (userInput.equals("1")) {
+            if(userInput.equals("q"))
+            {
+                System.out.println("Thanks Bye ");
+            }
+            else if  (userInput.equals("1")) {
                 Tickets tickets = new Tickets(credential);
                 JsonParser.parse(tickets.getTickets());
 
 
-            } else {
+            } else if(userInput.equals("2")){
                 System.out.println("Please Enter Id you want to search ");
                 int id = input.nextInt();
                 Tickets tickets = new Tickets(credential);
                 JsonParser.parseByID(tickets.getTicketByID(id));
 
             }
+            else
+            {
+                System.out.println("InValid Input");
+            }
+
 
         }
 
