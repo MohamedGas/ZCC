@@ -6,21 +6,22 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class APITest {
-    String url = " https://zcc9468.zendesk.com/api/v2/tickets.json " +
-            "mig7690@utulsa.edu:Ugaas123@@";
+    String url = " https://{subDomain}.zendesk.com/api/v2/tickets.json " +
+            "{email}:{Password}";
 
     @Test
     void getTicketByIDTest() throws ParseException {
 
-        Credential credential = new Credential("zcc9468", "mig7690@utulsa.edu", "Ugaas123@@");
+        Credential credential = new Credential("{subdomain}", "{email}", "{password}");
         Tickets tickets = new Tickets(credential);
         String expected = tickets.getTicketByID(204);
 
         Response actual = (Response) given()
                 .headers("Content-Type", ContentType.JSON, "Accept", ContentType.JSON)
-                .auth().basic("mig7690@utulsa.edu", "Ugaas123@@")
+                .auth()
+                .basic("{email}", "{password}")
                 .when()
-                .get("https://zcc9468.zendesk.com/api/v2/tickets/204.json ")
+                .get("https://{subdomain}.zendesk.com/api/v2/tickets/204.json ")
                 .then()
                 .contentType(ContentType.JSON)
                 .extract()
@@ -33,16 +34,16 @@ public class APITest {
 
     @Test
     void getTicketTest() throws ParseException {
-        Credential credential = new Credential("zcc9468", "mig7690@utulsa.edu", "Ugaas123@@");
+        Credential credential = new Credential("{subdomain}", "{email}", "{password}");
         Tickets tickets = new Tickets(credential);
         String expected = tickets.getTickets();
 
         Response actual = (Response) given()
                 .headers("Content-Type", ContentType.JSON, "Accept", ContentType.JSON)
                 .auth()
-                .basic("mig7690@utulsa.edu", "Ugaas123@@")
+                .basic("{email}", "{password}")
                 .when()
-                .get("https://zcc9468.zendesk.com/api/v2/tickets.json ")
+                .get("https://{subdomain}.zendesk.com/api/v2/tickets.json ")
                 .then()
                 .contentType(ContentType.JSON)
                 .extract()
