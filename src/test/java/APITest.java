@@ -6,44 +6,48 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class APITest {
-    String url = " https://{subDomain}.zendesk.com/api/v2/tickets.json " +
-            "{email}:{Password}";
+    // Put your subdomain and credential  here
+    String subdomain = "";
+    String email ="";
+    String password = "";
+    String url = " https://"+subdomain+".zendesk.com/api/v2/tickets.json " +
+            email+":"+password;
 
     @Test
     void getTicketByIDTest() throws ParseException {
 
-        Credential credential = new Credential("{subdomain}", "{email}", "{password}");
+        Credential credential = new Credential(subdomain, email,password);
         Tickets tickets = new Tickets(credential);
         String expected = tickets.getTicketByID(204);
 
         Response actual = (Response) given()
                 .headers("Content-Type", ContentType.JSON, "Accept", ContentType.JSON)
                 .auth()
-                .basic("{email}", "{password}")
+                .basic(email,password)
                 .when()
-                .get("https://{subdomain}.zendesk.com/api/v2/tickets/204.json ")
+                .get("https://"+subdomain+".zendesk.com/api/v2/tickets/204.json ")
                 .then()
                 .contentType(ContentType.JSON)
                 .extract()
                 .response()
                 .body();
-        Assert.assertEquals(actual, expected);
+        Assert.assertEquals(actual.body().asString(), expected);
 
 
     }
 
     @Test
     void getTicketTest() throws ParseException {
-        Credential credential = new Credential("{subdomain}", "{email}", "{password}");
+        Credential credential = new Credential(subdomain,email,password);
         Tickets tickets = new Tickets(credential);
         String expected = tickets.getTickets();
 
         Response actual = (Response) given()
                 .headers("Content-Type", ContentType.JSON, "Accept", ContentType.JSON)
                 .auth()
-                .basic("{email}", "{password}")
+                .basic(email,password)
                 .when()
-                .get("https://{subdomain}.zendesk.com/api/v2/tickets.json ")
+                .get("https://"+subdomain+".zendesk.com/api/v2/tickets.json ")
                 .then()
                 .contentType(ContentType.JSON)
                 .extract()
