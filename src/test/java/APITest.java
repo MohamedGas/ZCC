@@ -54,7 +54,6 @@ public class APITest {
                 .response()
                 .body();
         Assert.assertEquals(actual.getStatusCode(), 200);
-
         Assert.assertEquals(actual.body().asString(), expected);
 
 
