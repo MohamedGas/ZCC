@@ -59,10 +59,9 @@ List of Tickets </li>
 
       
 
-</code></pre><div class="zeroclipboard-container position-absolute right-0 top-0">
-    <clipboard-copy aria-label="Copy" class="ClipboardButton btn js-clipboard-copy m-2 p-0 tooltipped-no-delay" data-copy-feedback="Copied!" data-tooltip-direction="w" value="
-    String url = &quot; https://{subDomain}.zendesk.com/api/v2/tickets.json &quot; +
-            &quot;{email}:{Password}&quot;;
+</code></pre><div class="snippet-clipboard-content position-relative overflow-auto"><pre><code>
+    String url = " https://{subDomain}.zendesk.com/api/v2/tickets.json " +
+            "{email}:{Password}";
 
     @Test
     void getTicketByIDTest() throws ParseException {
